@@ -6,4 +6,4 @@ Mise en place d'une poubelle intelligente
 # Materiels utilisés 
 <img src="https://github.com/FabienFerrero/UCA21/blob/main/Doc/Pictures/UCA_logo.png">
 
-Fait par Regis AHADJI,Souleymane BALDE, Alpha BALDE
+Fait par Regis AHADJI,Souleymane BALDE et Alpha BALDE.
