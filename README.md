@@ -1,5 +1,5 @@
 Ce projet est réalisé dans le cadre du module Communication Sans Fil en Licence 1 à l’Université Nice Sophia Antipolis
-<img src="https://imgur.com/a/IP364HV">
+<img src="https://imgpile.com/p/zbEbrvZ#VV1qTSi">
 
 # L1_Projet_SmartTrash
 Mise en place d'une poubelle intelligente
