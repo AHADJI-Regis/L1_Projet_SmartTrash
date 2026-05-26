@@ -1,0 +1,29 @@
+# Cahier de suivi du projet de Balde Souleymane
+
+* Séance du 10 mars 2026
+
+Avec Régis et Alpha, projet Smart Trash. Je suis responsable des actionneurs : servomoteur pour l’ouverture du couvercle, et LEDs WS2812 pour l’indication visuelle. Première séance : montage du servo SG90 sur maquette, commande avec carte UCA (pin 6). Rotation 0° → 90° → 0° OK.
+
+* Séance du 18 mars 2026
+
+Problème classique : le servo cause des reset de la carte UCA à cause de l’appel de courant. J’ai ajouté un condensateur 470 µF près du servo et utilisé une alimentation externe (régulateur LM2596 réglé à 5V) pour le servo seul. Plus de reset. Le couvercle (en carton pour test) s’ouvre bien.
+
+* Séance du 25 mars 2026
+
+Intégration des LEDs WS2812 (pin 4). J’ai écrit un programme qui affiche vert (niveau < 30%), orange (30-70%), rouge (>70%) selon la distance donnée par Alpha. Test avec des valeurs simulées : OK. J’ai ajouté un effet de respiration quand la batterie est faible (mais nous n’avons pas encore la batterie finale).
+
+* Séance du 1er avril 2026
+
+Assemblage mécanique du servo sur la vraie poubelle (couvercle plastique). J’ai imprimé en 3D un support pour fixer le servo sur le bord et une attache sur le couvercle. L’ouverture est fluide, mais le servo chauffe légèrement si on maintient l’angle. J’ai réglé une temporisation de fermeture après 3 secondes.
+
+* Séance du 15 avril 2026
+
+Test d’intégration avec le capteur de présence (deuxième ultrason piloté par Régis). Quand une main passe à moins de 30 cm, le servo s’ouvre, puis se referme après 3 secondes. Tout fonctionne sur alimentation secteur.
+
+* Séance du 20 mai 2026
+
+Montage final avec batterie (9V ou 3,7V Li-Ion + booster). Catastrophe : la tension chute dès que le servo tourne. Les LEDs clignotent, la carte UCA redémarre. Nous mesurons : la batterie ne peut pas fournir 500 mA en pic. Le projet est fonctionnel sur USB, mais pas sur batterie. Nous décidons de présenter cet échec comme une leçon d’ingénierie : il faut dimensionner l’alimentation dès le début.
+
+* Séance du 24 mai 2026
+
+Nous rédigeons les conclusions. Pour la soutenance, je montrerai une vidéo du système fonctionnant sur USB, et j’expliquerai la solution retenue : remplacer la batterie par un power bank 5V/2A (testé rapidement avec un power bank de téléphone, ça marche). Le power bank sera intégré dans le fond de la poubelle.

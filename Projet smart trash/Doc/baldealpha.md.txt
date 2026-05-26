@@ -1,0 +1,29 @@
+# Cahier de suivi du projet de Balde Alpha
+
+* Séance du 10 mars 2026
+
+Smart Trash. Mon rôle : capteur ultrason HC-SR04 pour mesurer le niveau de remplissage, et coordination logicielle. Premier test avec un capteur : mesure distance en cm, affichage série. Câblage : TRIG sur A2, ECHO sur A3.
+
+* Séance du 19 mars 2026
+
+Problème de stabilité : la distance varie à cause des déchets (sacs, canettes). J’implémente une moyenne glissante sur 10 mesures. Résultat stable à ±2 cm. Calibration : hauteur totale = 40 cm (vide), hauteur pleine = 8 cm. Formule : `taux = (40 - distance) / 32 * 100`.
+
+* Séance du 26 mars 2026
+
+Intégration avec les LEDs (Souleymane) : selon le taux, affichage vert/orange/rouge. Test avec différents objets dans la poubelle : ça fonctionne. J’ajoute l’envoi du taux sur le moniteur série pour débogage.
+
+* Séance du 4 avril 2026
+
+Collaboration avec Régis pour l’envoi TTN. Je modifie le code pour que la mesure soit prise toutes les 5 secondes, mais l’envoi réseau ne se fasse que toutes les 5 minutes (économise la batterie). J’utilise `millis()` non bloquant. Test sur USB : parfait.
+
+* Séance du 22 avril 2026
+
+Test en conditions réelles : nous remplissons la poubelle progressivement (papier, bouteilles). Le taux de remplissage est cohérent. Ajustement des seuils : vert < 30%, orange 30-70%, rouge > 70%. Le seuil rouge déclenche l’email.
+
+* Séance du 20 mai 2026
+
+Montage final avec batterie. Je constate que le système ne fonctionne plus dès que le servo est sollicité. Je vérifie l’alimentation : la batterie (3,7V Li-Ion + booster 5V) chute à 4V dès que le servo tourne. J’aide Régis et Souleymane à diagnostiquer. Nous concluons que le besoin en courant est de 600 mA en pointe, or notre batterie ne fournit que 300 mA max. Échec.
+
+* Séance du 26 mai 2026 (veille de la présentation)
+
+Nous préparons les slides. Je montre les courbes de mesure de remplissage, les emails reçus lors des tests USB. Je propose une perspective : utiliser une batterie 12V / 2Ah avec un convertisseur buck 5V/2A, ou simplement un power bank 5V/2A (nous avons vérifié que ça marche). Je présente aussi l’amélioration possible : remplacer le servo par un motoréducteur plus économe.

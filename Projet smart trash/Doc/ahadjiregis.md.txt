@@ -1,0 +1,31 @@
+# Cahier de suivi du projet de Ahadji Régis
+
+* Séance du 10 mars 2026
+
+Nous avons formé le groupe avec Souleymane et Alpha. Projet Smart Trash : poubelle automatique sans contact. Objectifs : détection de présence, ouverture du couvercle, mesure du niveau de remplissage, envoi d’un email quand elle est pleine. Je suis responsable des capteurs et de la communication sans fil (TTN + Tago.io). Matériel : carte UCA, deux capteurs ultrason HC-SR04 (un pour la présence, un pour le niveau), servomoteur, LEDs WS2812, batterie externe.
+
+* Séance du 17 mars 2026
+
+J’ai d’abord testé le capteur PIR prévu initialement, mais il donnait trop de fausses détections (courants d’air, chaleur). Nous avons décidé collectivement de le remplacer par un deuxième capteur ultrason HC-SR04. Avantage : plus fiable pour détecter une main ou un objet devant la poubelle. J’ai câblé ce capteur sur les pins 9 (TRIG) et 8 (ECHO) de la carte UCA. Code de test : quand la distance mesurée est inférieure à 30 cm, on considère qu’une présence est détectée. Ça fonctionne parfaitement.
+
+* Séance du 24 mars 2026
+
+J’ai intégré la communication LoRaWAN. La carte UCA (ESP32) envoie des trames à The Things Network (TTN). J’ai créé l’application « smart_trash » et configuré un webhook vers Tago.io. Test réussi : j’envoie une valeur factice de remplissage (ex: 85%) et Tago.io déclenche un email. Problème : l’envoi toutes les 30 secondes vide la batterie trop vite. J’ai donc programmé un envoi toutes les 5 minutes.
+
+* Séance du 31 mars 2026
+
+J’ai relié la mesure du niveau (faite par Alpha) à l’envoi TTN. Quand le niveau dépasse 90%, un email est envoyé automatiquement. J’ai aussi ajouté un compteur pour éviter les emails en rafale. Test en simulation : OK. J’ai ensuite fusionné mon code avec celui de Souleymane (LEDs et servo).
+
+* Séance du 7 avril 2026
+
+Premier test du système complet sur table (alimentation USB secteur). Tout fonctionne : le capteur ultrason de présence détecte la main → le servo ouvre le couvercle. L’autre ultrason mesure le niveau → LEDs vert/orange/rouge. Envoi des données sur TTN. C’est parfait.
+
+* Séance du 20 mai 2026
+
+Nous passons au montage final sur la vraie poubelle, avec une batterie 9V (ou Li-Ion 3,7V + booster). Grosse déception : le système s’allume mais le servo moteur ne tourne pas ou saccade, la carte UCA redémarre sans cesse. Après vérification avec un multimètre, la batterie ne fournit pas assez de courant (pic de 500 mA nécessaire pour le servo + LEDs + deux capteurs). La tension chute à 4,5V. C’est l’échec final.
+
+Nous avons cherché des solutions : batterie 12V avec régulateur 5V/2A, ou batterie LiPo 2S (7,4V) plus puissante. Mais nous n’avons pas eu le temps de commander. Pour la présentation, nous expliquerons le problème d’alimentation et la solution que nous aurions mise en œuvre.
+
+* Séance du 25 mai 2026 (avant la présentation)
+
+Nous préparons le diaporama. Je présente la partie capteurs et communication, avec les logs TTN et Tago.io. Je montre que le code fonctionne parfaitement en USB, mais que la batterie est le point faible. Perspectives : utiliser un power bank 5V/2A ou une batterie LiPo 2200 mAh.
